@@ -14,12 +14,11 @@ const perPage = 40;
 
 const lightbox = new SimpleLightbox('.gallery__link');
 
-const submitHandler = e => {
-  e.preventDefault();
+const submitHandler = event => {
+  event.preventDefault();
   query = searchInputEl.value.trim();
   clearMarkup();
   loadMoreEl.classList.add('is-hidden');
-
   if (!query) return;
 
   fetchPictures(query, page, perPage).then(
@@ -32,6 +31,7 @@ const submitHandler = e => {
       }
       Notify.success(`Hooray! We found ${dataTotalHits} images.`);
       loadMoreEl.classList.remove('is-hidden');
+      page = 1;
       totalHits = dataTotalHits;
       renderMarkup(hits);
     }
