@@ -23,6 +23,7 @@ const submitHandler = event => {
 
   fetchPictures(query, page, perPage).then(
     ({ data: { hits, totalHits: dataTotalHits } }) => {
+      page = 0;
       if (!hits.length) {
         Notify.failure(
           'Sorry, there are no images matching your search query. Please try again.'
@@ -31,7 +32,6 @@ const submitHandler = event => {
       }
       Notify.success(`Hooray! We found ${dataTotalHits} images.`);
       loadMoreEl.classList.remove('is-hidden');
-      page = 1;
       totalHits = dataTotalHits;
       renderMarkup(hits);
     }
