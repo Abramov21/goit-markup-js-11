@@ -9,9 +9,8 @@ const galleryEl = document.querySelector('.gallery');
 const loadMoreEl = document.querySelector('.load-more');
 let query;
 let totalHits;
-let page = 1;
+let page=1;
 const perPage = 40;
-
 const lightbox = new SimpleLightbox('.gallery__link');
 
 const submitHandler = event => {
@@ -20,6 +19,7 @@ const submitHandler = event => {
   clearMarkup();
   loadMoreEl.classList.add('is-hidden');
   if (!query) return;
+  page = 1;
 
   fetchPictures(query, page, perPage).then(
     ({ data: { hits, totalHits: dataTotalHits } }) => {
@@ -29,7 +29,6 @@ const submitHandler = event => {
         );
         return;
       }
-      page = 0;
       Notify.success(`Hooray! We found ${dataTotalHits} images.`);
       loadMoreEl.classList.remove('is-hidden');
       totalHits = dataTotalHits;
@@ -37,6 +36,7 @@ const submitHandler = event => {
     }
   );
 };
+
 
 const loadMoreHandler = () => {
   const totalPages = Math.ceil(totalHits / perPage);
